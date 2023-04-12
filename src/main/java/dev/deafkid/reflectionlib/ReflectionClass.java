@@ -16,6 +16,25 @@ package dev.deafkid.reflectionlib;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
-public class ReflectionClass {
+
+import dev.deafkid.reflectionlib.exception.ReflectionFailException;
+
+public record ReflectionClass(Class<?> realClass) {
+
+    public static ReflectionClass ofString(String pattern) {
+        try {
+            Class<?> clazz = Class.forName(pattern);
+            return new ReflectionClass(clazz);
+        } catch (ClassNotFoundException ex) {
+            throw new ReflectionFailException("Unable to find any classes with pattern " + pattern);
+        }
+    }
+
+    public ReflectionMethod<?> findMethod(String methodName, Class<?>... parameterTypes) {
+        return ReflectionMethod.findMethod(realClass, methodName, parameterTypes);
+    }
+
+    public ReflectionField<?> findField(String fieldName) {
+        return ReflectionField.findField(realClass, fieldName);
+    }
 }

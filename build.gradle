@@ -1,20 +1,19 @@
 plugins {
-    id 'groovy'
+    id 'java'
 }
 
 group 'dev.deafkid'
 version '1.0-SNAPSHOT'
+description 'A simple reflection library'
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.apache.groovy:groovy:4.0.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
-test {
-    useJUnitPlatform()
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

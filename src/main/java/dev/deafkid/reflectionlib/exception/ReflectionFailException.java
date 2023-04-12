@@ -16,6 +16,10 @@ package dev.deafkid.reflectionlib.exception;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
-public class ReflectionFailException {
+
+public class ReflectionFailException extends RuntimeException {
+
+    public ReflectionFailException(String message) {
+        super(message);
+    }
 }
