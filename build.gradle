@@ -19,7 +19,6 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-
 publishing {
     publications {
         maven(MavenPublication) {
@@ -27,6 +26,9 @@ publishing {
                 name = 'ReflectionLib'
                 description = 'A simple reflection library'
             }
+
+            def jarName = "reflectionlib-${version}.jar"
+            artifact file("./build/libs/${jarName}")
         }
     }
     repositories {
