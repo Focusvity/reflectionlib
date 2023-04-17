@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group 'dev.deafkid'
@@ -16,4 +17,27 @@ java {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            pom {
+                name = 'ReflectionLib'
+                description = 'A simple reflection library'
+            }
+        }
+    }
+    repositories {
+        maven {
+            def releasesRepoUrl = uri("https://nexus.deafkid.dev/repository/deafkid-releases/")
+            def snapshotsRepoUrl = uri("https://nexus.deafkid.dev/repository/deafkid-snapshots/")
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv("nexusGUser")
+                password = System.getenv("nexusGPassword")
+            }
+        }
+    }
 }
